@@ -2,9 +2,11 @@
 
 use phalcon\Mvc\Router;
 
-$router = new Router();
-$router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
-
-$router->addGet('/', '\\Kirito\\Controller\\TestController::index');
+$router = new Router(false);
+$router->addGet("/say/hello/{name}", array(
+    'namespace' => 'Kirito\Controllers',
+    'controller' => 'test',
+    'action' => 'index'
+));
 
 return $router;

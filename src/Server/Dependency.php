@@ -4,6 +4,7 @@ namespace Kirito\Server;
 
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\View;
+use Phalcon\http\Request;
 
 class Dependency
 {
@@ -14,7 +15,23 @@ class Dependency
         $this->di = new FactoryDefault;
     }
 
-    public function initView()
+    public function getDI()
+    {
+        return $this->di;
+    }
+
+    public function init()
+    {
+        $this->initRequest();
+        $this->initView();
+    }
+
+    private function initRequest()
+    {
+        $this->di->set('request', new Request());
+    }
+
+    private function initView()
     {
         $this->di->set('view', function () {
             $view = new View();
@@ -22,10 +39,5 @@ class Dependency
 
             return $view;
         });
-    }
-
-    public function getDi()
-    {
-        return $this->di;
     }
 }
