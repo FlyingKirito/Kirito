@@ -31,7 +31,7 @@ class Kernel
     {
         $collection = new Collection();
 
-        $controllersRoutes = $this->config['route'];echo '<pre>';
+        $controllersRoutes = $this->config['route'];
         foreach ($controllersRoutes as $controllerName => $routes) {
             $className = 'Kirito\\Controller\\'.ucfirst($controllerName);
             $controller = new $className();
@@ -46,7 +46,7 @@ class Kernel
         $this->app->notFound(function () {
             echo '404 File not found';
         });
-        
+
         return $collection;
     }
 }

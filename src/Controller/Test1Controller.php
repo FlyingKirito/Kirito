@@ -6,13 +6,16 @@ use Phalcon\Mvc\Controller;
 
 class Test1Controller extends Controller
 {
-    public function get($name)
+    public function get()
     {
-        echo 123;
+        $params = $this->request->get('a');
+        var_dump($params);
     }
 
     public function post()
     {
-        echo 456;
+        $params['get'] = $this->request->get('a');
+        $params['post'] = $this->request->getPost('b');
+        var_dump($params);
     }
 }
