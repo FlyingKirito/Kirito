@@ -3,7 +3,7 @@
 本人初学phalcon,自己尝试着搭着玩，也是第一个个人项目。
 ## Nginx 配置
 其中fastcgi 根据自己需求配置
-
+```
 server {
     listen      80;
     server_name kirito.dev.com;
@@ -31,3 +31,4 @@ server {
         deny all;
     }
 }
+```
