@@ -46,6 +46,7 @@ class Kernel
         $this->app->notFound(function () {
             echo '404 File not found';
         });
+        
         return $collection;
     }
 }
