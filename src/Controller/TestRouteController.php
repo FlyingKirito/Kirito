@@ -2,9 +2,7 @@
 
 namespace Kirito\Controller;
 
-use Phalcon\Mvc\Controller;
-
-class Test1Controller extends Controller
+class TestRouteController extends BaseController
 {
     public function get()
     {

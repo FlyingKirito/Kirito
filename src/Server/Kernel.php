@@ -23,11 +23,12 @@ class Kernel
     private function init()
     {
         $this->app = new Micro();
-        $this->initController();
+        $this->registerController();
+        $this->registerService();
         $this->app->handle();
     }
 
-    private function initController()
+    private function registerController()
     {
         $collection = new Collection();
 
@@ -48,5 +49,10 @@ class Kernel
         });
 
         return $collection;
+    }
+
+    private function registerService()
+    {
+
     }
 }
