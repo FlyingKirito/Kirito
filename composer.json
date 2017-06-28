@@ -3,5 +3,8 @@
       "psr-4": {
         "Kirito\\": "src/"
       }
+  },
+  "require": {
+    "pimple/pimple": "^3.0"
   }
 }

@@ -4,8 +4,9 @@ namespace Kirito\Server;
 
 use Phalcon\Mvc\Micro;
 use Phalcon\Mvc\Micro\Collection;
+use Pimple\Container;
 
-class Kernel
+class Kernel extends Container
 {
     private $config;
     private $app;
@@ -18,6 +19,16 @@ class Kernel
     public function boot()
     {
         $this->init();
+    }
+
+    public function service($name)
+    {
+//        if ()
+    }
+
+    public function dao($name)
+    {
+
     }
 
     private function init()
