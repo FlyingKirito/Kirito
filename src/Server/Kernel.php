@@ -23,7 +23,6 @@ class Kernel extends Container
 
     public function service($name)
     {
-//        if ()
     }
 
     public function dao($name)
@@ -54,7 +53,9 @@ class Kernel extends Container
             }
             $this->app->mount($collection);
         }
-
+        $this->app->get('/', function () {
+            echo 'Welcome to Flying Kirito !';
+        });
         $this->app->notFound(function () {
             echo '404 File not found';
         });
@@ -64,6 +65,8 @@ class Kernel extends Container
 
     private function registerService()
     {
+        if (file_exists(dirname(__DIR__)."/Service/Implement/{}.php")) {
 
+        }
     }
 }
