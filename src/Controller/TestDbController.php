@@ -6,7 +6,7 @@ class TestDbController extends BaseController
 {
     public function test($value)
     {
-        $this->kernel->service('TestDbService')->test();
+        $this->getTestDbService()->test();
     }
 
     private function getTestDbService()
