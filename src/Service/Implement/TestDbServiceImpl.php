@@ -1,13 +1,13 @@
 <?php
 
-namespace Kirito\Server\Implement;
+namespace Kirito\Service\Implement;
 
 use Kirito\Service\TestDbService;
 
 class TestDbServiceImpl implements TestDbService
 {
-    public function testDb()
+    public function test()
     {
-        echo 123;
+        echo 'I am from Service';
     }
 }

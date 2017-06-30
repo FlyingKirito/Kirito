@@ -10,4 +10,10 @@ return [
             ['route' => '/say/hello/{name}', 'method' => 'post', 'action' => 'post']
         ]
     ],
+    'TestDbController' => [
+        'prefix' => '/v1/kirito/db',
+        'routes' => [
+            ['route' => '/test/db/{value}', 'method' => 'get', 'action' => 'test']
+        ]
+    ],
 ];
