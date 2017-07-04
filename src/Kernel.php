@@ -40,6 +40,11 @@ class Kernel extends Container
         }
     }
 
+    public function config($key)
+    {
+        return $this->config[$key];
+    }
+
     private function init()
     {
         $this->app = new Micro();
@@ -47,7 +52,7 @@ class Kernel extends Container
         $this->app->handle();
     }
 
-    private function registerController()
+    private function registerControllers()
     {
         $collection = new Collection();
 
@@ -75,8 +80,9 @@ class Kernel extends Container
 
     private function registers()
     {
-        $this->registerController();
+        $this->registerControllers();
         $this->registerBusiness();
+        $this->registerServices();
     }
 
     private function registerBusiness()
@@ -87,18 +93,29 @@ class Kernel extends Container
             foreach ($register['services'] as $serviceName) {
                 $class = __NAMESPACE__.'\\Service\\Implement\\'.ucfirst($serviceName).'Impl';
                 if (class_exists($class)) {
-                    $this["Service_{$serviceName}"] = new $class;
+                    $service = new $class;
+                    $service->setKernel($this);
+                    $this["Service_{$serviceName}"] = $service;
                 }
             }
         }
-
         if (!empty($register['daos'])) {
             foreach ($register['daos'] as $daoName) {
-                $class = __NAMESPACE__."\\Dao\\{$daoName}";
+                $class = __NAMESPACE__."\\Dao\\Implement\\{$daoName}";
                 if (class_exists($class)) {
-                    $this["Dao_{$daoName}"] = new $class;
+                    var_dump(123);
+                    $dao = new $class;
+                    $dao->setKernel($this);
+                    $this["Dao_{$daoName}"] = $dao;
                 }
             }
         }
+    }
+
+    private function registerServices()
+    {
+        $this['db'] = function ($kernel) {
+            return $kernel->config('test');
+        };
     }
 }
