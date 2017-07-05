@@ -21,12 +21,15 @@ class BaseDaoImpl implements BaseDao
 
     public function get($id)
     {
-
+        $sql = "SELECT * FROM {$this->table} WHERE id = ?";
+        return $this->db()->fetchAssoc($sql, [$id]);
     }
 
     public function create($fields)
     {
-
+        $fields['createdTime'] = time();
+        $fields['updatedTime'] = time();
+        $this->db()->insert($this->table, $fields);
     }
 
     public function update($id, $fields)
@@ -36,7 +39,7 @@ class BaseDaoImpl implements BaseDao
 
     public function delete($id)
     {
-
+        return $this->db()->delete($this->table, array('id' => $id));
     }
 
     public function count($conditions)

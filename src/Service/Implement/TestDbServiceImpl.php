@@ -8,7 +8,7 @@ class TestDbServiceImpl extends BaseServiceImpl implements TestDbService
 {
     public function test()
     {
-//        var_dump($this->kernel);
+        var_dump($this->getTestDbDao()->delete('1'));
     }
 
     private function getTestDbDao()

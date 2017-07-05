@@ -2,6 +2,7 @@
 
 namespace Kirito;
 
+use Doctrine\DBAL\DriverManager;
 use Phalcon\Mvc\Micro;
 use Phalcon\Mvc\Micro\Collection;
 use Pimple\Container;
@@ -82,6 +83,7 @@ class Kernel extends Container
     {
         $this->registerControllers();
         $this->registerBusiness();
+        $this->registerDatabase();
         $this->registerServices();
     }
 
@@ -101,9 +103,8 @@ class Kernel extends Container
         }
         if (!empty($register['daos'])) {
             foreach ($register['daos'] as $daoName) {
-                $class = __NAMESPACE__."\\Dao\\Implement\\{$daoName}";
+                $class = __NAMESPACE__.'\\Dao\\Implement\\'.ucfirst($daoName).'Impl';
                 if (class_exists($class)) {
-                    var_dump(123);
                     $dao = new $class;
                     $dao->setKernel($this);
                     $this["Dao_{$daoName}"] = $dao;
@@ -112,10 +113,32 @@ class Kernel extends Container
         }
     }
 
+    private function registerDatabase()
+    {
+        $this->createDatabase();
+        $this->createRedis();
+    }
+
     private function registerServices()
     {
-        $this['db'] = function ($kernel) {
-            return $kernel->config('test');
-        };
+
     }
+
+    private function createDatabase()
+    {
+        $databaseConfig = $this->config['database']['default'];
+        $this['db'] = DriverManager::getConnection([
+            'dbname' => $databaseConfig['database'],
+            'user' => $databaseConfig['user'],
+            'password' => $databaseConfig['pass'],
+            'host' => $databaseConfig['host'],
+            'driver' => $databaseConfig['driver']
+        ]);
+    }
+
+    private function createRedis()
+    {
+
+    }
+
 }

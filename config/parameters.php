@@ -10,7 +10,8 @@ return [
             'user' => 'root',
             'pass' => '',
             'database' => 'kirito',
-            'charset' => 'utf8'
+            'charset' => 'utf8',
+            'driver' => 'pdo_mysql'
         ],
         'testing' => [
             'host' => '127.0.0.1',
@@ -18,7 +19,8 @@ return [
             'user' => 'root',
             'pass' => '',
             'database' => 'kirito-dev',
-            'charset' => 'utf8'
+            'charset' => 'utf8',
+            'driver' => 'pdo_mysql'
         ],
     ],
 ];

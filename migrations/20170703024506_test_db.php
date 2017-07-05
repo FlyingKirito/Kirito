@@ -30,6 +30,9 @@ class TestDb extends AbstractMigration
         $this->table('test', ['engine' => 'InnoDB', 'primary_key' => ['id']])
             ->addColumn('name', 'string', ['limit' => '32', 'default' => ''])
             ->addColumn('age', 'integer', ['limit' => 10, 'default' => 0])
+            ->addColumn('createdTime', 'integer', ['default' => 0, 'comment' => '创建时间'])
+            ->addColumn('updatedTime', 'integer', ['default' => 0, 'comment' => '更新时间'])
+            ->addIndex(['name', 'age'])
             ->create();
     }
 }
