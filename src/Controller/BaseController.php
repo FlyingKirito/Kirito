@@ -12,4 +12,9 @@ class BaseController extends Controller
     {
         $this->kernel = $kernel;
     }
+
+    protected function render($path, $fields)
+    {
+        echo $this->kernel['views']->render($path, $fields);
+    }
 }

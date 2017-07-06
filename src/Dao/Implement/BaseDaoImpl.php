@@ -29,12 +29,12 @@ class BaseDaoImpl implements BaseDao
     {
         $fields['createdTime'] = time();
         $fields['updatedTime'] = time();
-        $this->db()->insert($this->table, $fields);
+        return $this->db()->insert($this->table, $fields);
     }
 
     public function update($id, $fields)
     {
-
+        return $this->db()->update($this->table, $fields, ['id' => $id]);
     }
 
     public function delete($id)

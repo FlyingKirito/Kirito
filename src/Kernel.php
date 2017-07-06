@@ -53,6 +53,15 @@ class Kernel extends Container
         $this->app->handle();
     }
 
+    private function registers()
+    {
+        $this->registerControllers();
+        $this->registerBusiness();
+        $this->registerDatabase();
+        $this->registerViewsTemplate();
+        $this->registerServices();
+    }
+
     private function registerControllers()
     {
         $collection = new Collection();
@@ -79,17 +88,9 @@ class Kernel extends Container
         return $collection;
     }
 
-    private function registers()
-    {
-        $this->registerControllers();
-        $this->registerBusiness();
-        $this->registerDatabase();
-        $this->registerServices();
-    }
-
     private function registerBusiness()
     {
-        $register = $this->config['register'];
+        $register = $this->config['business'];
 
         if (!empty($register['services'])) {
             foreach ($register['services'] as $serviceName) {
@@ -117,6 +118,13 @@ class Kernel extends Container
     {
         $this->createDatabase();
         $this->createRedis();
+    }
+
+    private function registerViewsTemplate()
+    {
+        $this['views'] = new \Twig_Environment(new \Twig_Loader_Filesystem(__DIR__.'/Resources/views'), [
+            'debug' => true,
+        ]);
     }
 
     private function registerServices()

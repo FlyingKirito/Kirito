@@ -3,17 +3,19 @@
 
 
 return [
-    'TestRouteController' => [
-        'prefix' => '/v1/kirito/route',
+    'TestViewController' => [
+        'prefix' => '/v1/kirito/view',
         'routes' => [
-            ['route' => '/say/hello/{name}', 'method' => 'get', 'action' => 'get'],
-            ['route' => '/say/hello/{name}', 'method' => 'post', 'action' => 'post']
+            ['route' => '/say/hello', 'method' => 'get', 'action' => 'view'],
         ]
     ],
     'TestDbController' => [
         'prefix' => '/v1/kirito/db',
         'routes' => [
-            ['route' => '/test/db/{value}', 'method' => 'get', 'action' => 'test']
+            ['route' => '/test/create', 'method' => 'post', 'action' => 'testCreate'],
+            ['route' => '/test/update', 'method' => 'post', 'action' => 'testUpdate'],
+            ['route' => '/test/get/{id}', 'method' => 'get', 'action' => 'testGet'],
+            ['route' => '/test/delete/{id}', 'method' => 'get', 'action' => 'testDelete']
         ]
     ],
 ];
