@@ -8,6 +8,7 @@
     "pimple/pimple": "^3.0",
     "robmorgan/phinx": "^0.8.1",
     "doctrine/dbal": "^2.5",
-    "twig/twig": "^1.34"
+    "twig/twig": "^1.34",
+    "symfony/console": "^3.3"
   }
 }
