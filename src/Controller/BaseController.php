@@ -15,6 +15,6 @@ class BaseController extends Controller
 
     protected function render($path, $fields)
     {
-        echo $this->kernel['views']->render($path, $fields);
+        return $this->kernel['views']->render($path, $fields);
     }
 }

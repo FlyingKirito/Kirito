@@ -6,6 +6,6 @@ class TestViewController extends BaseController
 {
     public function view()
     {
-        $this->render('test.html.twig', []);
+        return $this->render('test.html.twig', []);
     }
 }

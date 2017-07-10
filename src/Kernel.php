@@ -22,7 +22,7 @@ class Kernel extends Container
 
     public function boot()
     {
-        $this->init();
+        return $this->init();
     }
 
     public function service($name)
@@ -50,7 +50,7 @@ class Kernel extends Container
     {
         $this->app = new Micro();
         $this->registers();
-        $this->app->handle();
+        return $this->app->handle();
     }
 
     private function registers()
