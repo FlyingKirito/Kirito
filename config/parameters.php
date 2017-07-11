@@ -23,4 +23,5 @@ return [
             'driver' => 'pdo_mysql'
         ],
     ],
+    'httpServer' => include dirname(__DIR__).'/config/httpServer.php',
 ];
