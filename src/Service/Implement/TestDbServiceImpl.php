@@ -26,6 +26,11 @@ class TestDbServiceImpl extends BaseServiceImpl implements TestDbService
         var_dump($this->getTestDbDao()->delete($id));
     }
 
+    public function testCount($fields)
+    {
+        return $this->getTestDbDao()->count($fields);
+    }
+
     private function getTestDbDao()
     {
         return $this->kernel->dao('TestDbDao');

@@ -58,11 +58,10 @@ class HttpServer
 
         $_GET['_url'] = $_SERVER['REQUEST_URI'] = $req->server['request_uri'];
         $_SERVER['REQUEST_METHOD'] = $req->server['request_method'];
-        $_COOKIE = $req->cookie;
-
+        $_COOKIE = isset($req->cookie) ? $req->cookie : [];
         ob_start();
         $response = $this->kernel->boot();
         ob_end_clean();
-        $res->end($response);
+        $res->end($response->getContent());
     }
 }

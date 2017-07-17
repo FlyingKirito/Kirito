@@ -29,6 +29,12 @@ class TestDbController extends BaseController
         $this->getTestDbService()->testDelete($id);
     }
 
+    public function testCount()
+    {
+        $fields = $this->getQuery();
+        return $this->jsonReturn($this->getTestDbService()->testCount(['id' => $fields['id']]));
+    }
+
     private function getTestDbService()
     {
         return $this->kernel->service('TestDbService');

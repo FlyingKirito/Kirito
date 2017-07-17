@@ -11,4 +11,6 @@ interface TestDbService
     public function testCreate($fields);
 
     public function testUpdate($id, $fields);
+
+    public function testCount($fields);
 }

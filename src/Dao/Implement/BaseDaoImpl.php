@@ -44,11 +44,18 @@ class BaseDaoImpl implements BaseDao
 
     public function count($conditions)
     {
-
+        $andWheres = $this->andWhere($conditions);
+        $sql = "SELECT COUNT(*) AS `count` FROM {$this->table} ".(empty($andWheres)? '' : 'WHERE '.$andWheres);
+        return $this->db()->fetchAssoc($sql, array_values($conditions));
     }
 
     public function search($conditions, $orderBy, $start, $limit)
     {
+        
+    }
 
+    private function andWhere($wheres)
+    {
+         return implode(' = ? AND', array_keys($wheres)).' = ?';
     }
 }

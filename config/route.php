@@ -15,7 +15,8 @@ return [
             ['route' => '/test/create', 'method' => 'post', 'action' => 'testCreate'],
             ['route' => '/test/update', 'method' => 'post', 'action' => 'testUpdate'],
             ['route' => '/test/get/{id}', 'method' => 'get', 'action' => 'testGet'],
-            ['route' => '/test/delete/{id}', 'method' => 'get', 'action' => 'testDelete']
+            ['route' => '/test/delete/{id}', 'method' => 'get', 'action' => 'testDelete'],
+            ['route' => '/test/count', 'method' => 'get', 'action' => 'testCount']
         ]
     ],
 ];

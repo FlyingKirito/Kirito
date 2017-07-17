@@ -1,2 +1,4 @@
 /.idea
 /vendor/
+/var/log/*.log
+/var/pid/*.pid
