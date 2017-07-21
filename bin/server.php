@@ -25,7 +25,8 @@ class Server
             return;
         }
 
-        $this->createServer();
+        $server = $this->createServer();
+        $server->handle();
     }
 
     private function checkCommand()
@@ -50,8 +51,7 @@ class Server
 
     private function createServer()
     {
-        $server = include $this->argv[2];
-        $server->handle();
+        return include $this->argv[2];
     }
 }
 

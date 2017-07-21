@@ -24,4 +24,5 @@ return [
         ],
     ],
     'httpServer' => include dirname(__DIR__).'/config/httpServer.php',
+    'socketServer' => include dirname(__DIR__).'/config/socketServer.php',
 ];
