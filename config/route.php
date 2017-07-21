@@ -19,4 +19,10 @@ return [
             ['route' => '/test/count', 'method' => 'get', 'action' => 'testCount']
         ]
     ],
+    'TestSocketController' => [
+        'prefix' => '/v1/kirito/socket',
+        'routes' => [
+            ['route' => '/test/connect', 'method' => 'get', 'action' => 'testSocket']
+        ]
+    ]
 ];
