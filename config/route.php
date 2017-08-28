@@ -7,6 +7,7 @@ return [
         'prefix' => '/v1/kirito/view',
         'routes' => [
             ['route' => '/say/hello', 'method' => 'get', 'action' => 'view'],
+            ['route' => '/to/redirect', 'method' => 'get', 'action' => 'testRedirect']
         ]
     ],
     'TestDbController' => [

@@ -2,7 +2,8 @@
 
 return [
     'services' => [
-        'TestDbService'
+        'TestDbService',
+        'TestService'
     ],
     'daos' => [
         'TestDbDao'

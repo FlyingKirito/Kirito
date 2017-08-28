@@ -8,4 +8,9 @@ class TestViewController extends BaseController
     {
         return $this->render('test.html.twig', []);
     }
+
+    public function testRedirect()
+    {
+        var_dump($this->redirect('http://www.baidu.com', true));
+    }
 }

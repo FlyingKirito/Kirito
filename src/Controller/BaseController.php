@@ -31,6 +31,12 @@ class BaseController extends Controller
         return $this->kernel['views']->render($path, $fields);
     }
 
+    protected function redirect($url, $isOutside)
+    {
+        $response = new Response();
+        return $response->redirect($url, $isOutside);
+    }
+
     protected function jsonReturn($params)
     {
         $response = new Response();
