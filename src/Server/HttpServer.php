@@ -51,6 +51,11 @@ class HttpServer
             return ;
         }
 
+        if ($req->server['request_uri'] == '/') {
+            $res->end('Wellcome to FlyingKirito');
+            return ;
+        }
+
         $_GET = $_POST = $_SERVER = $_COOKIE = [];
 
         $_GET = !empty($req->get) ? $req->get : [];
@@ -59,9 +64,10 @@ class HttpServer
         $_GET['_url'] = $_SERVER['REQUEST_URI'] = $req->server['request_uri'];
         $_SERVER['REQUEST_METHOD'] = $req->server['request_method'];
         $_COOKIE = isset($req->cookie) ? $req->cookie : [];
+
         ob_start();
         $response = $this->kernel->boot();
         ob_end_clean();
-        $res->end($response->getContent());
+        $res->end($response);
     }
 }
