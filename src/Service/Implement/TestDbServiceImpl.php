@@ -13,7 +13,7 @@ class TestDbServiceImpl extends BaseServiceImpl implements TestDbService
 
     public function testGet($id)
     {
-        var_dump($this->getTestDbDao()->get($id));
+        return $this->getTestDbDao()->get($id);
     }
 
     public function testUpdate($id, $fields)

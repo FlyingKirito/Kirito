@@ -55,14 +55,14 @@ class Kernel extends Container
     {
         $this->app = new Micro();
         $this->registers();
-        return $this->app->handle();
+        return $this->app;
     }
 
     private function registers()
     {
-        $this->registerControllers();
         $this->registerDatabase();
         $this->registerViewsTemplate();
+        $this->registerControllers();
     }
 
     private function registerControllers()
@@ -104,9 +104,12 @@ class Kernel extends Container
     {
         $class = __NAMESPACE__.'\\Service\\Implement\\'.ucfirst($name).'Impl';
         if (class_exists($class)) {
-            $service = new $class;
-            $service->setKernel($this);
-            $this["Service_{$name}"] = $service;
+            $this["Service_{$name}"] = function ($kernel) use ($class){
+                $service = new $class;
+                $service->setKernel($kernel);
+                return $service;
+            };
+
             return $this["Service_{$name}"];
         }
 
@@ -117,9 +120,12 @@ class Kernel extends Container
     {
         $class = __NAMESPACE__.'\\Dao\\Implement\\'.ucfirst($name).'Impl';
         if (class_exists($class)) {
-            $dao = new $class;
-            $dao->setKernel($this);
-            $this["Dao_{$name}"] = $dao;
+            $this["Dao_{$name}"] = function ($kernel) use ($class) {
+                $dao = new $class;
+                $dao->setKernel($kernel);
+                return $dao;
+            };
+
             return $this["Dao_{$name}"];
         }
 
@@ -134,28 +140,34 @@ class Kernel extends Container
 
     private function registerViewsTemplate()
     {
-        $this['views'] = new \Twig_Environment(new \Twig_Loader_Filesystem(__DIR__.'/Resources/views'), [
-            'debug' => true,
-        ]);
+        $this['views'] = function ($kernel) {
+            return new \Twig_Environment(new \Twig_Loader_Filesystem(__DIR__.'/Resources/views'), [
+                'debug' => true,
+            ]);
+        };
     }
 
     private function createDatabase()
     {
         $databaseConfig = $this->config['database']['default'];
-        $this['db'] = DriverManager::getConnection([
-            'dbname' => $databaseConfig['database'],
-            'user' => $databaseConfig['user'],
-            'password' => $databaseConfig['pass'],
-            'host' => $databaseConfig['host'],
-            'driver' => $databaseConfig['driver']
-        ]);
+        $this['db'] = function () use ($databaseConfig) {
+            return DriverManager::getConnection([
+                'dbname' => $databaseConfig['database'],
+                'user' => $databaseConfig['user'],
+                'password' => $databaseConfig['pass'],
+                'host' => $databaseConfig['host'],
+                'driver' => $databaseConfig['driver']
+            ]);
+        };
     }
 
     private function createRedis()
     {
         $redisConfig = $this->config['redis']['default'];
-        $redis = new \Redis();
-        $redis->connect($redisConfig['host'], $redisConfig['port']);
-        $this['redis'] = $redis;
+        $this['redis'] = function () use ($redisConfig) {
+            $redis = new \Redis();
+            $redis->connect($redisConfig['host'], $redisConfig['port']);
+            return $redis;
+        };
     }
 }

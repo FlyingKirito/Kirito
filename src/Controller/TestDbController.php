@@ -21,7 +21,7 @@ class TestDbController extends BaseController
 
     public function testGet($id)
     {
-        $this->getTestDbService()->testGet($id);
+        return $this->jsonReturn($this->getTestDbService()->testGet($id));
     }
 
     public function testDelete($id)

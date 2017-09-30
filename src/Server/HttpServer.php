@@ -6,8 +6,12 @@ class HttpServer
 {
     private $server;
     private $kernel;
+    private $handle;
 
-    private $bind = ['onRequest' => 'request'];
+    private $bind = [
+        'onRequest' => 'request',
+        'onWorkerStart' => 'workerStart'
+    ];
 
     public function handle()
     {
@@ -45,6 +49,11 @@ class HttpServer
         }
     }
 
+    public function onWorkerStart()
+    {
+        $this->handle = $this->kernel->boot();
+    }
+
     public function onRequest($req, $res)
     {
         if ($req->server['request_uri'] == '/favicon.ico') {
@@ -61,7 +70,7 @@ class HttpServer
         $_COOKIE = isset($req->cookie) ? $req->cookie : [];
 
         ob_start();
-        $response = $this->kernel->boot();
+        $response = $this->handle->handle();
         ob_end_clean();
 
         $code = $response->getStatusCode();
