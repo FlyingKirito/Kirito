@@ -51,11 +51,6 @@ class HttpServer
             return ;
         }
 
-        if ($req->server['request_uri'] == '/') {
-            $res->end('Wellcome to FlyingKirito');
-            return ;
-        }
-
         $_GET = $_POST = $_SERVER = $_COOKIE = [];
 
         $_GET = !empty($req->get) ? $req->get : [];
@@ -68,6 +63,9 @@ class HttpServer
         ob_start();
         $response = $this->kernel->boot();
         ob_end_clean();
-        $res->end($response);
+
+        $code = $response->getStatusCode();
+        $res->status(intval($code));
+        $res->end($response->getContent());
     }
 }

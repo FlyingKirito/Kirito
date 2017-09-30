@@ -28,12 +28,15 @@ class BaseController extends Controller
 
     protected function render($path, $fields)
     {
-        return $this->kernel['views']->render($path, $fields);
+        $response = new Response();
+        $response->setStatusCode(200);
+        return $response->setContent($this->kernel['views']->render($path, $fields));
     }
 
     protected function redirect($url, $isOutside)
     {
         $response = new Response();
+        $response->setStatusCode(302);
         return $response->redirect($url, $isOutside);
     }
 

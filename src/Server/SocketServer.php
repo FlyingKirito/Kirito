@@ -44,7 +44,6 @@ class SocketServer
     public function onMessage($server, $frame)
     {
         echo "receive: message {$frame->data} from {$frame->fd} serverFd: {$server->fd}";
-        var_dump($server);
         $server->push($frame->fd, 'I am Kirito');
     }
 

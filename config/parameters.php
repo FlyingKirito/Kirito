@@ -2,7 +2,6 @@
 
 return [
     'route' => include dirname(__DIR__).'/config/route.php',
-    'business' => include dirname(__DIR__).'/config/business.php',
     'database' => [
         'default' => [
             'host' => '127.0.0.1',

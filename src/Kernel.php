@@ -4,6 +4,7 @@ namespace Kirito;
 
 use Doctrine\DBAL\DriverManager;
 use Phalcon\Mvc\Micro;
+use Phalcon\Http\Response;
 use Phalcon\Mvc\Micro\Collection;
 use Pimple\Container;
 
@@ -31,6 +32,8 @@ class Kernel extends Container
         if($this->offsetExists($key)) {
             return $this[$key];
         }
+
+        return $this->registerService($name);
     }
 
     public function dao($name)
@@ -39,6 +42,8 @@ class Kernel extends Container
         if($this->offsetExists($key)) {
             return $this[$key];
         }
+
+        return $this->registerDao($name);
     }
 
     public function config($key)
@@ -56,10 +61,8 @@ class Kernel extends Container
     private function registers()
     {
         $this->registerControllers();
-        $this->registerBusiness();
         $this->registerDatabase();
         $this->registerViewsTemplate();
-        $this->registerServices();
     }
 
     private function registerControllers()
@@ -78,40 +81,49 @@ class Kernel extends Container
             }
             $this->app->mount($collection);
         }
+
         $this->app->get('/', function () {
-            echo 'Welcome to Flying Kirito !';
+            $response = new Response();
+            $response->setStatusCode(200);
+            $response->setContent('Welcome to Flying Kirito !');
+            return $response;
         });
+
         $this->app->notFound(function () {
-            echo '404 File not found';
+            $response = new Response();
+            $response->setStatusCode(404);
+            $response->setContent('404 File not found');
+            return $response;
         });
 
         return $collection;
     }
 
-    private function registerBusiness()
+    //对于普通的nginx访问用到再去注册会更好，　但用与其进程的做法还是直接全部注册好
+    private function registerService($name)
     {
-        $register = $this->config['business'];
+        $class = __NAMESPACE__.'\\Service\\Implement\\'.ucfirst($name).'Impl';
+        if (class_exists($class)) {
+            $service = new $class;
+            $service->setKernel($this);
+            $this["Service_{$name}"] = $service;
+            return $this["Service_{$name}"];
+        }
 
-        if (!empty($register['services'])) {
-            foreach ($register['services'] as $serviceName) {
-                $class = __NAMESPACE__.'\\Service\\Implement\\'.ucfirst($serviceName).'Impl';
-                if (class_exists($class)) {
-                    $service = new $class;
-                    $service->setKernel($this);
-                    $this["Service_{$serviceName}"] = $service;
-                }
-            }
+        return ;
+    }
+
+    private function registerDao($name)
+    {
+        $class = __NAMESPACE__.'\\Dao\\Implement\\'.ucfirst($name).'Impl';
+        if (class_exists($class)) {
+            $dao = new $class;
+            $dao->setKernel($this);
+            $this["Dao_{$name}"] = $dao;
+            return $this["Dao_{$name}"];
         }
-        if (!empty($register['daos'])) {
-            foreach ($register['daos'] as $daoName) {
-                $class = __NAMESPACE__.'\\Dao\\Implement\\'.ucfirst($daoName).'Impl';
-                if (class_exists($class)) {
-                    $dao = new $class;
-                    $dao->setKernel($this);
-                    $this["Dao_{$daoName}"] = $dao;
-                }
-            }
-        }
+
+        return ;
     }
 
     private function registerDatabase()
@@ -125,11 +137,6 @@ class Kernel extends Container
         $this['views'] = new \Twig_Environment(new \Twig_Loader_Filesystem(__DIR__.'/Resources/views'), [
             'debug' => true,
         ]);
-    }
-
-    private function registerServices()
-    {
-
     }
 
     private function createDatabase()
