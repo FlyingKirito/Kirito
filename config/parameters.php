@@ -22,6 +22,16 @@ return [
             'driver' => 'pdo_mysql'
         ],
     ],
+    'redis' => [
+        'default' => [
+            'host' => '127.0.0.1',
+            'port' => '6379',
+        ],
+        'testing' => [
+            'host' => '127.0.0.1',
+            'port' => '6380',
+        ],
+    ],
     'httpServer' => include dirname(__DIR__).'/config/httpServer.php',
     'socketServer' => include dirname(__DIR__).'/config/socketServer.php',
 ];

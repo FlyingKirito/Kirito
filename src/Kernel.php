@@ -153,7 +153,9 @@ class Kernel extends Container
 
     private function createRedis()
     {
-
+        $redisConfig = $this->config['redis']['default'];
+        $redis = new \Redis();
+        $redis->connect($redisConfig['host'], $redisConfig['port']);
+        $this['redis'] = $redis;
     }
-
 }
