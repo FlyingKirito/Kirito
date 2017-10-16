@@ -38,3 +38,4 @@ return [
         'im_api' => 'http://im.message.statistics/rpc.php'
     ],
 ];
+

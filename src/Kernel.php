@@ -15,6 +15,7 @@ class Kernel extends Container
 
     const SERVICE_KEY = 'Service_%s';
     const DAO_KEY = 'Dao_%s';
+    const RPC_URL = '%s?service=%s';
 
     public function __construct($config)
     {
@@ -44,6 +45,20 @@ class Kernel extends Container
         }
 
         return $this->registerDao($name);
+    }
+
+    public function rpc($endpoint, $service)
+    {
+        if (empty($service)) {
+            throw new \Exception('rpc调用：　service参数不能为空');
+        }
+
+        $config = $this->config('rpc');
+        if (empty($config[$endpoint])) {
+            throw new \Exception("rpc调用：　{$endpoint}该站点未有相关配置信息");
+        }
+
+        return new \Yar_Client(sprintf(self::RPC_URL, $config[$endpoint], $service));
     }
 
     public function config($key)
