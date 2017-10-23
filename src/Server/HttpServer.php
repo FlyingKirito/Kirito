@@ -64,9 +64,9 @@ class HttpServer
 
         $_GET = !empty($req->get) ? $req->get : [];
         $_POST = !empty($req->post) ? $req->post : [];
+        $_SERVER = !empty($req->server) ? $req->server : [];
 
         $_GET['_url'] = $_SERVER['REQUEST_URI'] = $req->server['request_uri'];
-        $_SERVER['REQUEST_METHOD'] = $req->server['request_method'];
         $_COOKIE = isset($req->cookie) ? $req->cookie : [];
 
         ob_start();
