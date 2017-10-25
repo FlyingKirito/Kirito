@@ -14,7 +14,7 @@ class BaseDaoImpl implements BaseDao
         $this->kernel = $kernel;
     }
 
-    protected function db()
+    public function db()
     {
         return $this->kernel['db'];
     }
