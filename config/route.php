@@ -25,5 +25,12 @@ return [
         'routes' => [
             ['route' => '/test/connect', 'method' => 'get', 'action' => 'testSocket']
         ]
-    ]
+    ],
+    'UserController' => [
+        'prefix' => '/v1/kirito',
+        'routes' => [
+            ['route' => '/user/login', 'method' => 'get', 'action' => 'login'],
+            ['route' => '/user/login', 'method' => 'post', 'action' => 'login'],
+        ]
+    ],
 ];

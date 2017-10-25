@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/v1/kirito/user/login" method="post">
+    <input type="text" name="username">
+    <input type="text" name="password">
+    <input type="hidden" name="{{ csrf_token_key }}" value="{{ csrf_token }}">
+    <button>登陆</button>
+</form>
+</body>
+</html>

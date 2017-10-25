@@ -6,8 +6,10 @@ use Doctrine\DBAL\DriverManager;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Phalcon\Mvc\Micro;
+use Phalcon\Di\FactoryDefault;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Micro\Collection;
+use Phalcon\Session\Adapter\Files;
 use Pimple\Container;
 
 class Kernel extends Container
@@ -71,6 +73,15 @@ class Kernel extends Container
     private function init()
     {
         $this->app = new Micro();
+        $di = new FactoryDefault();
+        $di->setShared('session', function () {
+            $session = new Files();
+            $session->start();
+            return $session;
+        });
+
+        $this->app->setDI($di);
+
         $this->registers();
         return $this->app;
     }

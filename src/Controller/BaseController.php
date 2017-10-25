@@ -51,4 +51,9 @@ class BaseController extends Controller
     {
         return $_SERVER['request_method'];
     }
+
+    protected function csrfTokenValid()
+    {
+        $this->security->checkToken();
+    }
 }
