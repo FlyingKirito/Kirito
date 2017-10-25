@@ -46,4 +46,9 @@ class BaseController extends Controller
         $response->setStatusCode(200);
         return $response->setJsonContent($params);
     }
+
+    protected function requestMethod()
+    {
+        return $_SERVER['request_method'];
+    }
 }

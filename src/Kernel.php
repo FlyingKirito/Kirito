@@ -3,6 +3,8 @@
 namespace Kirito;
 
 use Doctrine\DBAL\DriverManager;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Micro\Collection;
@@ -78,6 +80,7 @@ class Kernel extends Container
         $this->registerDatabase();
         $this->registerViewsTemplate();
         $this->registerControllers();
+        $this->registerTool();
     }
 
     private function registerControllers()
@@ -183,6 +186,15 @@ class Kernel extends Container
             $redis = new \Redis();
             $redis->connect($redisConfig['host'], $redisConfig['port']);
             return $redis;
+        };
+    }
+
+    private function registerTool()
+    {
+        $this['logger'] = function () {
+            $logger = new Logger('app');
+            $logger->pushHandler(new StreamHandler('var/log/app.log'), Logger::DEBUG);
+            return $logger;
         };
     }
 }
