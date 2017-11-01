@@ -10,6 +10,7 @@
     "doctrine/dbal": "^2.5",
     "twig/twig": "^1.34",
     "symfony/console": "^3.3",
-    "monolog/monolog": "^1.23"
+    "monolog/monolog": "^1.23",
+    "vlucas/phpdotenv": "^2.4"
   }
 }

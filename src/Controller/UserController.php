@@ -18,7 +18,16 @@ class UserController extends BaseController
         }
 
         if ($this->csrfTokenValid()) {
-
+            $post = $this->getPost();
+            $this->getUserService()->login([
+                'username' => empty($post['username']) ? : $post['username'],
+                'password' => empty($post['password']) ? : $post['password']
+            ]);
         }
+    }
+
+    private function getUserService()
+    {
+        return $this->kernel->service('UserService');
     }
 }

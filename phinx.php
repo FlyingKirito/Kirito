@@ -1,5 +1,8 @@
 <?php
 
+$dotenv = new \Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
 $config = include __DIR__.'/config/parameters.php';
 
 return [

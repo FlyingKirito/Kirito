@@ -8,7 +8,7 @@ class TestRpcServiceImpl extends BaseServiceImpl implements TestRpcService
 {
     public function getAccount()
     {
-        return $this->getAccountRpc()->findAccounts();
+//        return $this->getAccountRpc()->findAccounts();
     }
 
     public function getAccountRpc()

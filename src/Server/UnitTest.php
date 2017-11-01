@@ -9,9 +9,7 @@ class UnitTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = include dirname(__DIR__).'../../config/parameters-testing.php';
-        $this->kernel = new \Kirito\Kernel($config);
-        $this->kernel->boot();
+        $this->kernel = include dirname(__DIR__).'/../bootstrap/bootstrap_testing.php';
     }
 
     public function getKernel()

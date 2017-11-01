@@ -4,38 +4,37 @@ return [
     'route' => include dirname(__DIR__).'/config/route.php',
     'database' => [
         'default' => [
-            'host' => '127.0.0.1',
-            'port' => '3306',
-            'user' => 'root',
-            'pass' => '',
-            'database' => 'kirito',
+            'host' => getenv('DATABASE_DEFAULT_HOST'),
+            'port' => getenv('DATABASE_DEFAULT_PORT'),
+            'user' => getenv('DATABASE_DEFAULT_USER'),
+            'pass' => getenv('DATABASE_DEFAULT_PWD'),
+            'database' => getenv('DATABASE_DEFAULT_NAME'),
             'charset' => 'utf8',
             'driver' => 'pdo_mysql'
         ],
         'testing' => [
-            'host' => '127.0.0.1',
-            'port' => '3306',
-            'user' => 'root',
-            'pass' => '',
-            'database' => 'kirito-dev',
+            'host' => getenv('DATABASE_TEST_HOST'),
+            'port' => getenv('DATABASE_TEST_PORT'),
+            'user' => getenv('DATABASE_TEST_USER'),
+            'pass' => getenv('DATABASE_TEST_PWD'),
+            'database' => getenv('DATABASE_TEST_NAME'),
             'charset' => 'utf8',
             'driver' => 'pdo_mysql'
         ],
     ],
     'redis' => [
         'default' => [
-            'host' => '127.0.0.1',
-            'port' => '6379',
+            'host' => getenv('REDIS_DEFAULT_HOST'),
+            'port' => getenv('REDIS_DEFAULT_PORT'),
         ],
         'testing' => [
-            'host' => '127.0.0.1',
-            'port' => '6380',
+            'host' => getenv('REDIS_TEST_HOST'),
+            'port' => getenv('REDIS_TEST_PORT'),
         ],
     ],
     'httpServer' => include dirname(__DIR__).'/config/httpServer.php',
     'socketServer' => include dirname(__DIR__).'/config/socketServer.php',
     'rpc' => [
-        'im_api' => 'http://im.message.statistics/rpc.php'
+        'im_api' => getenv('RPC_IM')
     ],
 ];
-
