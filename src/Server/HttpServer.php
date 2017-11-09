@@ -2,6 +2,8 @@
 
 namespace Kirito\Server;
 
+use Phalcon\Http\Response;
+
 class HttpServer
 {
     private $server;
@@ -73,8 +75,12 @@ class HttpServer
         $response = $this->handle->handle();
         ob_end_clean();
 
-        $code = $response->getStatusCode();
-        $res->status(intval($code));
-        $res->end($response->getContent());
+        if ($response instanceof Response) {
+            $code = $response->getStatusCode();
+            $res->status(intval($code));
+            $res->end($response->getContent());
+        } else {
+            throw new \Exception('Response Error !');
+        }
     }
 }

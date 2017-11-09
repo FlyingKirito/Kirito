@@ -23,8 +23,6 @@ function connect() {
     };
 }
 
-connect()
-
 $("button").click(function () {
     var value = $("input").val();
     if (value.length > 0) {

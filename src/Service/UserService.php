@@ -4,7 +4,7 @@ namespace Kirito\Service;
 
 interface UserService
 {
-    public function login($params);
+    public function login($username, $password);
 
     public function register($params);
 
