@@ -12,7 +12,7 @@ class UserServiceImpl extends BaseServiceImpl implements UserService
         $user = $this->getUser($username);
         //验证及设置session
         if ($this->checkPassword($password, $user)) {
-
+            $this->
         }
 
         //返回

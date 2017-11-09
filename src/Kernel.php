@@ -73,17 +73,24 @@ class Kernel extends Container
     private function init()
     {
         $this->app = new Micro();
-        $di = new FactoryDefault();
-        $di->setShared('session', function () {
-            $session = new Files();
-            $session->start();
-            return $session;
-        });
+        $di = $this->initDi();
 
         $this->app->setDI($di);
 
         $this->registers();
         return $this->app;
+    }
+
+    private function initDi()
+    {
+        $di = new FactoryDefault();
+        $di->setShared('session', function () {
+            $session = new Session();
+            $session->start();
+            return $session;
+        });
+
+        return $di;
     }
 
     private function registers()
@@ -207,5 +214,6 @@ class Kernel extends Container
             $logger->pushHandler(new StreamHandler('var/log/app.log'), Logger::DEBUG);
             return $logger;
         };
+
     }
 }
