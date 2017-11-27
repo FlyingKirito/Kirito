@@ -2,6 +2,7 @@
 
 namespace Kirito;
 
+use anlutro\cURL\cURL;
 use Doctrine\DBAL\DriverManager;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -103,7 +104,7 @@ class Kernel extends Container
 
     private function registerControllers()
     {
-        $collection = new Collection();
+            $collection = new Collection();
 
         $controllersRoutes = $this->config['route'];
         foreach ($controllersRoutes as $controllerName => $routes) {
@@ -131,8 +132,6 @@ class Kernel extends Container
             $response->setContent('404 File not found');
             return $response;
         });
-
-        return $collection;
     }
 
     //对于普通的nginx访问用到再去注册会更好，　但用与其进程的做法还是直接全部注册好
@@ -215,5 +214,8 @@ class Kernel extends Container
             return $logger;
         };
 
+        $this['curl'] = function () {
+            return new cURL();
+        };
     }
 }
