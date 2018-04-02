@@ -3,5 +3,10 @@
       "psr-4": {
         "Kirito\\": "src/"
       }
+  },
+  "require": {
+    "pimple/pimple": "^3.0",
+    "robmorgan/phinx": "^0.8.1",
+    "doctrine/dbal": "^2.5"
   }
 }

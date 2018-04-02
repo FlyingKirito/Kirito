@@ -1,10 +1,19 @@
 <?php
 
-use phalcon\Mvc\Router;
 
-$router = new Router();
-$router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
 
-$router->addGet('/', '\\Kirito\\Controller\\TestController::index');
-
-return $router;
+return [
+    'TestRouteController' => [
+        'prefix' => '/v1/kirito/route',
+        'routes' => [
+            ['route' => '/say/hello/{name}', 'method' => 'get', 'action' => 'get'],
+            ['route' => '/say/hello/{name}', 'method' => 'post', 'action' => 'post']
+        ]
+    ],
+    'TestDbController' => [
+        'prefix' => '/v1/kirito/db',
+        'routes' => [
+            ['route' => '/test/db/{value}', 'method' => 'get', 'action' => 'test']
+        ]
+    ],
+];
