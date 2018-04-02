@@ -31,6 +31,13 @@ class Kernel extends Container
         if($this->offsetExists($key)) {
             return $this[$key];
         }
+
+        $serviceName = __NAMESPACE__.'\\Service\\Implement\\'.ucfirst($name).'Impl';
+        $service = new $serviceName;
+        $service->setKernel($this);
+
+        $this[$key] = $service;
+        return $service;
     }
 
     public function dao($name)
@@ -39,6 +46,13 @@ class Kernel extends Container
         if($this->offsetExists($key)) {
             return $this[$key];
         }
+
+        $daoName = __NAMESPACE__.'\\Dao\\Implement\\'.ucfirst($name).'Impl';
+        $dao = new $daoName;
+        $dao->setKernel($this);
+
+        $this[$key] = $dao;
+        return $dao;
     }
 
     public function config($key)
@@ -82,46 +96,13 @@ class Kernel extends Container
     private function registers()
     {
         $this->registerControllers();
-        $this->registerBusiness();
         $this->registerDatabase();
-        $this->registerServices();
-    }
-
-    private function registerBusiness()
-    {
-        $register = $this->config['register'];
-
-        if (!empty($register['services'])) {
-            foreach ($register['services'] as $serviceName) {
-                $class = __NAMESPACE__.'\\Service\\Implement\\'.ucfirst($serviceName).'Impl';
-                if (class_exists($class)) {
-                    $service = new $class;
-                    $service->setKernel($this);
-                    $this["Service_{$serviceName}"] = $service;
-                }
-            }
-        }
-        if (!empty($register['daos'])) {
-            foreach ($register['daos'] as $daoName) {
-                $class = __NAMESPACE__.'\\Dao\\Implement\\'.ucfirst($daoName).'Impl';
-                if (class_exists($class)) {
-                    $dao = new $class;
-                    $dao->setKernel($this);
-                    $this["Dao_{$daoName}"] = $dao;
-                }
-            }
-        }
     }
 
     private function registerDatabase()
     {
         $this->createDatabase();
         $this->createRedis();
-    }
-
-    private function registerServices()
-    {
-
     }
 
     private function createDatabase()
