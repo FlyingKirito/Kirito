@@ -4,26 +4,32 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit996ae037a089de717cb86f6419496df4
+class ComposerStaticInitf4a785533c0be250e44a982149ce051c
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\Validator\\' => 28,
+            'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
         ),
+        'R' => 
+        array (
+            'Ramsey\\Uuid\\' => 12,
+        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
-            'Phinx\\' => 6,
+            'Psr\\Container\\' => 14,
         ),
         'K' => 
         array (
@@ -31,6 +37,7 @@ class ComposerStaticInit996ae037a089de717cb86f6419496df4
         ),
         'D' => 
         array (
+            'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
@@ -42,9 +49,13 @@ class ComposerStaticInit996ae037a089de717cb86f6419496df4
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Component\\Yaml\\' => 
+        'Symfony\\Component\\Validator\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/yaml',
+            0 => __DIR__ . '/..' . '/symfony/validator',
+        ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
         ),
         'Symfony\\Component\\Filesystem\\' => 
         array (
@@ -62,17 +73,25 @@ class ComposerStaticInit996ae037a089de717cb86f6419496df4
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
+        'Ramsey\\Uuid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/uuid/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
-        'Phinx\\' => 
+        'Psr\\Container\\' => 
         array (
-            0 => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx',
+            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Kirito\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Doctrine\\Common\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
         'Doctrine\\Common\\Cache\\' => 
         array (
@@ -95,6 +114,10 @@ class ComposerStaticInit996ae037a089de717cb86f6419496df4
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
             ),
+            'Phpmig' => 
+            array (
+                0 => __DIR__ . '/..' . '/davedevelopment/phpmig/src',
+            ),
         ),
         'D' => 
         array (
@@ -106,10 +129,6 @@ class ComposerStaticInit996ae037a089de717cb86f6419496df4
             array (
                 0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
-            'Doctrine\\Common\\Inflector\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
-            ),
             'Doctrine\\Common\\Collections\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/collections/lib',
@@ -120,9 +139,9 @@ class ComposerStaticInit996ae037a089de717cb86f6419496df4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit996ae037a089de717cb86f6419496df4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit996ae037a089de717cb86f6419496df4::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit996ae037a089de717cb86f6419496df4::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf4a785533c0be250e44a982149ce051c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf4a785533c0be250e44a982149ce051c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf4a785533c0be250e44a982149ce051c::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

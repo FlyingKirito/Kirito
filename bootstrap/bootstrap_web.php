@@ -1,8 +1,3 @@
 <?php
 
-include dirname(__DIR__).'/vendor/autoload.php';
-
-$config = include dirname(__DIR__).'/config/parameters.php';
-$kernel = new Kirito\Kernel($config);
-
-$kernel->boot();
+return include dirname(__DIR__).'/bootstrap/bootstrap_kernel.php';

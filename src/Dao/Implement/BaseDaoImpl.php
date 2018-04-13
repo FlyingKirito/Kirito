@@ -27,8 +27,10 @@ class BaseDaoImpl implements BaseDao
 
     public function create($fields)
     {
+        $fields['id'] = $this->kernel['id_generator.uuid']->generate();
         $fields['createdTime'] = time();
         $fields['updatedTime'] = time();
+
         $this->db()->insert($this->table, $fields);
     }
 

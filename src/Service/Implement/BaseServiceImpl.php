@@ -10,4 +10,9 @@ class BaseServiceImpl
     {
         $this->kernel = $kernel;
     }
+
+    protected function getValidator()
+    {
+        return $this->kernel['validator'];
+    }
 }

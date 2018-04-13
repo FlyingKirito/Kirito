@@ -2,14 +2,13 @@
 
 return [
     'route' => include dirname(__DIR__).'/config/route.php',
-    'register' => include dirname(__DIR__).'/config/register.php',
     'database' => [
         'default' => [
             'host' => '127.0.0.1',
             'port' => '3306',
             'user' => 'root',
             'pass' => '',
-            'database' => 'kirito',
+            'dbname' => 'kirito',
             'charset' => 'utf8',
             'driver' => 'pdo_mysql'
         ],
@@ -18,9 +17,13 @@ return [
             'port' => '3306',
             'user' => 'root',
             'pass' => '',
-            'database' => 'kirito-dev',
+            'dbname' => 'kirito-dev',
             'charset' => 'utf8',
             'driver' => 'pdo_mysql'
         ],
     ],
+    'redis' => [
+        'host' => '127.0.0.1',
+        'port' => 6379
+    ]
 ];

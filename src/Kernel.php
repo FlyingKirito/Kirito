@@ -3,6 +3,7 @@
 namespace Kirito;
 
 use Doctrine\DBAL\DriverManager;
+use Kirito\Component\IdGenerator;
 use Phalcon\Mvc\Micro;
 use Phalcon\Mvc\Micro\Collection;
 use Pimple\Container;
@@ -64,7 +65,21 @@ class Kernel extends Container
     {
         $this->app = new Micro();
         $this->registers();
-        $this->app->handle();
+        $this->handle();
+    }
+
+    private function handle()
+    {
+        $this->app->get('/', function () {
+            echo 'Welcome to Flying Kirito !';
+        });
+        $this->app->notFound(function () {
+            echo '404 File not found';
+        });
+
+        ob_start();
+        $response = $this->app->handle();
+        ob_end_clean();
     }
 
     private function registerControllers()
@@ -79,16 +94,10 @@ class Kernel extends Container
             $collection->setHandler($controller);
             $collection->setPrefix($routes['prefix']);
             foreach ($routes['routes'] as $route) {
-                $collection->$route['method']($route['route'], $route['action']);
+                $collection->{$route['method']}($route['route'], $route['method']);
             }
             $this->app->mount($collection);
         }
-        $this->app->get('/', function () {
-            echo 'Welcome to Flying Kirito !';
-        });
-        $this->app->notFound(function () {
-            echo '404 File not found';
-        });
 
         return $collection;
     }
@@ -97,6 +106,7 @@ class Kernel extends Container
     {
         $this->registerControllers();
         $this->registerDatabase();
+        $this->registerComponent();
     }
 
     private function registerDatabase()
@@ -108,18 +118,32 @@ class Kernel extends Container
     private function createDatabase()
     {
         $databaseConfig = $this->config['database']['default'];
-        $this['db'] = DriverManager::getConnection([
-            'dbname' => $databaseConfig['database'],
-            'user' => $databaseConfig['user'],
-            'password' => $databaseConfig['pass'],
-            'host' => $databaseConfig['host'],
-            'driver' => $databaseConfig['driver']
-        ]);
+        $this['db'] = function () use ($databaseConfig) {
+            return DriverManager::getConnection([
+                'dbname' => $databaseConfig['dbname'],
+                'user' => $databaseConfig['user'],
+                'password' => $databaseConfig['pass'],
+                'host' => $databaseConfig['host'],
+                'driver' => $databaseConfig['driver']
+            ]);
+        };
     }
 
     private function createRedis()
     {
+        $config = $this->config['redis'];
+        $this['redis'] = function () use ($config) {
+            $redis = new \Redis();
+            $redis->connect($config['host'], $config['port']);
+            return $redis;
+        };
+    }
 
+    private function registerComponent()
+    {
+        $this['id_generator.uuid'] = function () {
+            return new IdGenerator();
+        };
     }
 
 }
