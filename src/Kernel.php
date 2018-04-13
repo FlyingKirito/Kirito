@@ -4,14 +4,11 @@ namespace Kirito;
 
 use Doctrine\DBAL\DriverManager;
 use Kirito\Component\IdGenerator;
-use Phalcon\Mvc\Micro;
-use Phalcon\Mvc\Micro\Collection;
 use Pimple\Container;
 
 class Kernel extends Container
 {
     private $config;
-    private $app;
 
     const SERVICE_KEY = 'Service_%s';
     const DAO_KEY = 'Dao_%s';
@@ -23,7 +20,7 @@ class Kernel extends Container
 
     public function boot()
     {
-        $this->init();
+        return $this->init();
     }
 
     public function service($name)
@@ -63,48 +60,6 @@ class Kernel extends Container
 
     private function init()
     {
-        $this->app = new Micro();
-        $this->registers();
-        $this->handle();
-    }
-
-    private function handle()
-    {
-        $this->app->get('/', function () {
-            echo 'Welcome to Flying Kirito !';
-        });
-        $this->app->notFound(function () {
-            echo '404 File not found';
-        });
-
-        ob_start();
-        $response = $this->app->handle();
-        ob_end_clean();
-    }
-
-    private function registerControllers()
-    {
-        $collection = new Collection();
-
-        $controllersRoutes = $this->config['route'];
-        foreach ($controllersRoutes as $controllerName => $routes) {
-            $className = __NAMESPACE__.'\\Controller\\'.ucfirst($controllerName);
-            $controller = new $className();
-            $controller->setKernel($this);
-            $collection->setHandler($controller);
-            $collection->setPrefix($routes['prefix']);
-            foreach ($routes['routes'] as $route) {
-                $collection->{$route['method']}($route['route'], $route['method']);
-            }
-            $this->app->mount($collection);
-        }
-
-        return $collection;
-    }
-
-    private function registers()
-    {
-        $this->registerControllers();
         $this->registerDatabase();
         $this->registerComponent();
     }

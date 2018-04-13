@@ -15,11 +15,15 @@ class BaseController extends Controller
         $this->response = new Response;
     }
 
-    public function view()
+    public function setKernel($kernel)
+    {
+        $this->kernel = $kernel;
+    }
+
+    public function render()
     {
         $this->response->setStatusCode(200, 'OK');
-        $this->response->setContent('view');
-        return $this->response;
+        return $this->response->setContent('view');
     }
 
     public function jsonReturn($return)
